@@ -1,3 +1,9 @@
 {
-"chose_where_you_want":"Please choose where you want."
+"chose_where_you_want":"Please choose where you want.",
+"sign_in":"Sign in",
+"register_account":"Register",
+"write_to-do_list":"To-do list",
+"choose_a_language":"Choose a language",
+"Chinese":"繁體中文",
+"English":"English"
 }
