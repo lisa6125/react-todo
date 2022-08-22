@@ -44,6 +44,8 @@ export const StyledHome = styled.div`
                 border: 2px solid #333;
                 text-align: center;
                 line-height: 100px;
+                text-decoration: none;
+                color: #000;
                 cursor: pointer;
                 &:hover{
                     color: white;
