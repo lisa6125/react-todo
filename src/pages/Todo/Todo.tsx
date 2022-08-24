@@ -4,7 +4,9 @@ import { StyledTodo } from './StyledTodo'
 
 export default function Todo() {
 
-    const [todoArr, setTodoArr] = useState([]);
+    const [todoArr, setTodoArr] = useState([
+        { title: 'try someting', down: 'false', id: 1 }
+    ]);
     return (
         <StyledTodo>
             <div className='todo'>
@@ -33,8 +35,15 @@ export default function Todo() {
                         <div className="todo_listBox_list">
                             {
                                 todoArr.length > 0 ?
-                                    todoArr.map(() => { return (<></>) }
-                                    ) :
+                                    todoArr.map((item) => {
+                                        return (
+                                            <div className='todoItem' key={item.id}>
+                                                <div className="checkBox"></div>
+                                                <span>{item.title}</span>
+                                            </div>
+                                            // <></>
+                                        )
+                                    }) :
                                     <div className="empty">
                                         <img src="./assets/images/empty.png" alt="" />
                                     </div>

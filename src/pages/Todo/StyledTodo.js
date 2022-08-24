@@ -79,9 +79,21 @@ box-sizing: border-box;
             }
         }
         &_list{
+            padding: 24px;
             .empty{
                 text-align: center;
-                padding: 24px 0;
+            }
+            .todoItem{
+                display: flex;
+                align-items: center;
+                .checkBox{
+                    width: 20px;
+                    height: 20px;
+                    border: 1px solid #9F9A91;
+                    border-radius: 5px;
+                    margin-right: 16px;
+                    display: inline-block;
+                }
             }
         }
         &_done{
