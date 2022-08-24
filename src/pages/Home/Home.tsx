@@ -15,6 +15,8 @@ export default function Home() {
     const { t, i18n } = useTranslation();
 
     const [openLang, setOpenLang] = useState<boolean>(false);
+    const [Lang, setLang] = useState<string>(i18n.language);
+
 
     const toggleOpenLang = () => {
         setOpenLang((openLang) => !openLang);
@@ -22,6 +24,7 @@ export default function Home() {
 
     const changeLange = (lang: string) => {
         i18n.changeLanguage(lang);
+        setLang(lang);
     }
     return (
         <StyledHome>
@@ -44,7 +47,7 @@ export default function Home() {
                 <div className="Home_Language">
                     <div className="Home_Language_text" onClick={toggleOpenLang}>
                         <RiGlobalLine />
-                        <span>{i18n.language === "zh-TW" ? t('Chinese') : t('English')}</span>
+                        <span>{Lang === "zh-tw" ? t('Chinese') : Lang === "zh-TW" ? t('Chinese') : t('English')}</span>
                     </div>
                     {openLang && <div className="Home_Language_choice">
                         <span onClick={() => changeLange('zh-tw')}>{t('Chinese')}</span>
