@@ -1,12 +1,33 @@
 import React, { useState } from 'react'
 
+import { v4 } from 'uuid';
+
 import { StyledTodo } from './StyledTodo'
+
+type TypeTodoItem = {
+    title: string,
+    down: boolean,
+    id: number
+}
 
 export default function Todo() {
 
-    const [todoArr, setTodoArr] = useState([
-        { title: 'try someting', down: 'false', id: 1 }
-    ]);
+    const [todoArr, setTodoArr] = useState<TypeTodoItem[] | []>([]);
+
+    const [todoInput, setTodoInput] = useState<string>('');
+
+    const inputTodoItem = (todo: string) => {
+        setTodoInput(todo);
+    }
+
+    const addTodoItem = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (e.key !== "Enter") return;
+        setTodoArr((pre: any) => {
+            return [{ title: todoInput, down: false, id: v4() }, ...pre];
+        });
+        (e.target as HTMLInputElement).value = '';
+        setTodoInput('');
+    };
     return (
         <StyledTodo>
             <div className='todo'>
@@ -21,7 +42,7 @@ export default function Todo() {
                 </div>
                 <div className="todo_container">
                     <div className="todo_input">
-                        <input type="text" placeholder='新增待辦事項' />
+                        <input type="text" placeholder='新增待辦事項' onChange={(e) => inputTodoItem(e.target.value)} onKeyDown={(e) => addTodoItem(e)} />
                         <div className="addIcon">
                             <img src="./assets/images/add.svg" alt="" />
                         </div>
