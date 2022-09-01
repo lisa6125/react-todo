@@ -86,6 +86,12 @@ box-sizing: border-box;
             .todoItem{
                 display: flex;
                 align-items: center;
+                padding: 15px 0;
+                border-bottom: 1px solid #E5E5E5;
+                cursor: default;
+                &:last-child{
+                    border: none;
+                }
                 .checkBox{
                     width: 20px;
                     height: 20px;
@@ -93,6 +99,12 @@ box-sizing: border-box;
                     border-radius: 5px;
                     margin-right: 16px;
                     display: inline-block;
+                }
+                span{
+                    max-width: 300px;
+                    overflow: hidden;
+                    white-space: nowrap;
+                    text-overflow: ellipsis;
                 }
             }
         }
@@ -112,8 +124,10 @@ box-sizing: border-box;
                 font-size: 14px;
                 line-height: 20px;
                 color: #333333;
+                cursor: default;
             }
             .clearDone{
+                cursor: pointer;
                 font-weight: 400;
                 font-size: 14px;
                 line-height: 20px;
