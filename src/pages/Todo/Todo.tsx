@@ -1,14 +1,17 @@
 import React, { useState, useRef } from 'react'
+import { produce } from 'immer'
 
 import { v4 } from 'uuid';
 
 import { StyledTodo } from './StyledTodo'
 
-type TypeTodoItem = {
+interface TypeTodoItem {
     title: string,
     down: boolean,
     id: number
 }
+
+type caseStateType = "All" | "unCompleted" | "Completed"
 
 export default function Todo() {
 
@@ -17,6 +20,9 @@ export default function Todo() {
     const [todoInput, setTodoInput] = useState<string>('');
 
     const todoInputRef = useRef<HTMLInputElement>(null);
+
+    const [caseState, setCaseState] = useState<caseStateType>('All');
+
 
     const inputTodoItem = (todo: string) => {
         setTodoInput(todo);
@@ -30,6 +36,7 @@ export default function Todo() {
         setTodoInput('');
     };
     const clickAddTodoItem = () => {
+        if (todoInput === '') return;
         setTodoArr((pre: any) => {
             return [{ title: todoInput, down: false, id: v4() }, ...pre];
         });
@@ -39,6 +46,18 @@ export default function Todo() {
     const cleanAllTodo = () => {
         if (todoArr.length === 0) return;
         setTodoArr([]);
+    }
+    const handleAlreadyDone = (idx: number) => {
+        setTodoArr(produce((draftState) => {
+            draftState.map((item) => {
+                if (idx === item.id) {
+                    item.down = !item.down
+                }
+            })
+        }));
+    }
+    function handleChangeCaseState<Type extends caseStateType>(value: Type) {
+        setCaseState(value);
     }
     return (
         <StyledTodo>
@@ -61,9 +80,9 @@ export default function Todo() {
                     </div>
                     <div className="todo_listBox">
                         <div className="todo_listBox_tab">
-                            <div className="todo_listBox_tab_item">全部</div>
-                            <div className="todo_listBox_tab_item">待完成</div>
-                            <div className="todo_listBox_tab_item">已完成</div>
+                            <div className={caseState === 'All' ? 'todo_listBox_tab_item action' : 'todo_listBox_tab_item'} onClick={() => handleChangeCaseState("All")}>全部</div>
+                            <div className={caseState === 'unCompleted' ? 'todo_listBox_tab_item action' : 'todo_listBox_tab_item'} onClick={() => handleChangeCaseState("unCompleted")}>待完成</div>
+                            <div className={caseState === 'Completed' ? 'todo_listBox_tab_item action' : 'todo_listBox_tab_item'} onClick={() => handleChangeCaseState("Completed")}>已完成</div>
                         </div>
                         <div className="todo_listBox_list">
                             {
@@ -71,8 +90,10 @@ export default function Todo() {
                                     todoArr.map((item) => {
                                         return (
                                             <div className='todoItem' key={item.id}>
-                                                <div className="checkBox"></div>
-                                                <span>{item.title}</span>
+                                                <div className="checkBox" onClick={() => handleAlreadyDone(item.id)}>
+                                                    {item.down ? <img src="./assets/images/Vector.svg" alt="" /> : ''}
+                                                </div>
+                                                <span style={{ textDecoration: item.down ? 'line-through' : 'none' }}>{item.title}</span>
                                             </div>
                                             // <></>
                                         )

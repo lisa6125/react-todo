@@ -77,6 +77,10 @@ box-sizing: border-box;
                 padding: 16px 0;
                 cursor: pointer;
             }
+            .action{
+                border-bottom: 2px solid #ffb100;
+                color: #ffb100;
+            }
         }
         &_list{
             padding: 24px;
@@ -99,6 +103,7 @@ box-sizing: border-box;
                     border-radius: 5px;
                     margin-right: 16px;
                     display: inline-block;
+                    cursor: pointer;
                 }
                 span{
                     max-width: 300px;
