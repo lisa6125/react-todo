@@ -1,15 +1,13 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom';
-
+import { Link } from 'react-router-dom'
 
 //styled
 import { StyledHome } from './StyledHome'
 
 //i18n
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next'
 
-
-import { RiGlobalLine } from "react-icons/ri";
+import { RiGlobalLine } from "react-icons/ri"
 
 export default function Home() {
     const { t, i18n } = useTranslation();
@@ -25,6 +23,7 @@ export default function Home() {
     const changeLange = (lang: string) => {
         i18n.changeLanguage(lang);
         setLang(lang);
+        setOpenLang((openLang) => !openLang);
     }
     return (
         <StyledHome>

@@ -1,7 +1,10 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import { produce } from 'immer'
+//i18n
+import { useTranslation } from 'react-i18next'
 
-import { v4 } from 'uuid';
+import { v4 } from 'uuid'
 
 import { StyledTodo } from './StyledTodo'
 
@@ -15,7 +18,11 @@ type caseStateType = "All" | "unCompleted" | "Completed"
 
 export default function Todo() {
 
+    const { t, i18n } = useTranslation()
+
     const [todoArr, setTodoArr] = useState<TypeTodoItem[] | []>([]);
+
+    const [filterTodoArr, setFilterTodoArr] = useState<TypeTodoItem[] | []>([]);
 
     const [todoInput, setTodoInput] = useState<string>('');
 
@@ -45,7 +52,9 @@ export default function Todo() {
     };
     const cleanAllTodo = () => {
         if (todoArr.length === 0) return;
-        setTodoArr([]);
+        setTodoArr(todoArr.filter((item) => {
+            return !item.down
+        }));
     }
     const handleAlreadyDone = (idx: number) => {
         setTodoArr(produce((draftState) => {
@@ -59,53 +68,84 @@ export default function Todo() {
     function handleChangeCaseState<Type extends caseStateType>(value: Type) {
         setCaseState(value);
     }
+    const handleDeleteItem = (idx: number) => {
+        setTodoArr(todoArr.filter((item) => {
+            return item.id !== idx
+        }));
+    }
+
+    useEffect(() => {
+        if (caseState === 'unCompleted') {
+            setFilterTodoArr(
+                todoArr.filter((item) => {
+                    return !item.down
+                })
+            );
+        } else if (caseState === 'Completed') {
+            setFilterTodoArr(
+                todoArr.filter((item) => {
+                    return item.down
+                })
+            );
+        } else {
+            setFilterTodoArr(todoArr);
+        }
+    }, [todoArr, caseState])
     return (
         <StyledTodo>
             <div className='todo'>
                 <div className="nav">
-                    <div className="nav_logo">
+                    <Link to='/' className="nav_logo">
                         <img src="./assets/images/logo.svg" alt="" />
-                    </div>
+                    </Link>
                     <div className="nav_user">
                         王小明的代辦
                     </div>
-                    <div className="nav_logout">登出</div>
+                    <div className="nav_logout">{t('logout')}</div>
                 </div>
                 <div className="todo_container">
                     <div className="todo_input">
-                        <input type="text" placeholder='新增待辦事項' ref={todoInputRef} onChange={(e) => inputTodoItem(e.target.value)} onKeyDown={(e) => addTodoItem(e)} />
+                        <input type="text" placeholder={t('addToDo')} ref={todoInputRef} onChange={(e) => inputTodoItem(e.target.value)} onKeyDown={(e) => addTodoItem(e)} />
                         <div className="addIcon" onClick={clickAddTodoItem}>
                             <img src="./assets/images/add.svg" alt="" />
                         </div>
                     </div>
                     <div className="todo_listBox">
                         <div className="todo_listBox_tab">
-                            <div className={caseState === 'All' ? 'todo_listBox_tab_item action' : 'todo_listBox_tab_item'} onClick={() => handleChangeCaseState("All")}>全部</div>
-                            <div className={caseState === 'unCompleted' ? 'todo_listBox_tab_item action' : 'todo_listBox_tab_item'} onClick={() => handleChangeCaseState("unCompleted")}>待完成</div>
-                            <div className={caseState === 'Completed' ? 'todo_listBox_tab_item action' : 'todo_listBox_tab_item'} onClick={() => handleChangeCaseState("Completed")}>已完成</div>
+                            <div className={caseState === 'All' ? 'todo_listBox_tab_item action' : 'todo_listBox_tab_item'} onClick={() => handleChangeCaseState("All")}>{t('All')}</div>
+                            <div className={caseState === 'unCompleted' ? 'todo_listBox_tab_item action' : 'todo_listBox_tab_item'} onClick={() => handleChangeCaseState("unCompleted")}>{t('unCompleted')}</div>
+                            <div className={caseState === 'Completed' ? 'todo_listBox_tab_item action' : 'todo_listBox_tab_item'} onClick={() => handleChangeCaseState("Completed")}>{t('Completed')}</div>
                         </div>
                         <div className="todo_listBox_list">
                             {
-                                todoArr.length > 0 ?
-                                    todoArr.map((item) => {
+                                filterTodoArr.length > 0 ?
+                                    filterTodoArr.map((item) => {
                                         return (
                                             <div className='todoItem' key={item.id}>
                                                 <div className="checkBox" onClick={() => handleAlreadyDone(item.id)}>
                                                     {item.down ? <img src="./assets/images/Vector.svg" alt="" /> : ''}
                                                 </div>
                                                 <span style={{ textDecoration: item.down ? 'line-through' : 'none' }}>{item.title}</span>
+                                                <div className="delete" onClick={() => handleDeleteItem(item.id)}>
+                                                    <img src="./assets/images/delete.svg" alt="" />
+                                                </div>
                                             </div>
                                             // <></>
                                         )
                                     }) :
                                     <div className="empty">
                                         <img src="./assets/images/empty.png" alt="" />
+                                        <span>{caseState === 'All' ? t('NoTo-dosYet') : caseState === 'unCompleted' ? t('NoTo-dosYetToBeCompleted') : t('NoTo-dosCompletedYet')}</span>
                                     </div>
                             }
                         </div>
                         <div className="todo_listBox_done">
-                            <div className="haveDoneNum">{todoArr.length} 個待完成項目</div>
-                            <div className="clearDone" onClick={cleanAllTodo}>清除已完成項目</div>
+                            <div className="haveDoneNum">{
+                                caseState === 'All' ? filterTodoArr.length + ' ' + t('items') : caseState === 'unCompleted' ?
+                                    filterTodoArr.length + ' ' + t('itemsUnCompleted') :
+                                    filterTodoArr.length + ' ' + t('itemsCompleted')
+                            }</div>
+                            <div className="clearDone" onClick={cleanAllTodo}>{t('ClearCompletedItems')}</div>
                         </div>
                     </div>
                 </div>

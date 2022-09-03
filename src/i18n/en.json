@@ -5,5 +5,17 @@
 "write_to-do_list":"To-do list",
 "choose_a_language":"Choose a language",
 "Chinese":"繁體中文",
-"English":"English"
+"English":"English",
+"logout":"Logout",
+"addToDo":"Add To-do",
+"All":"All",
+"unCompleted":"Uncompleted",
+"Completed":"Completed",
+"items":"items",
+"itemsUnCompleted":"items uncompleted",
+"itemsCompleted":"items completed",
+"ClearCompletedItems":"Clear completed items",
+"NoTo-dosYet":"No to-dos yet",
+"NoTo-dosYetToBeCompleted":"No to-dos yet to be completed",
+"NoTo-dosCompletedYet":"No to-dos completed yet"
 }
