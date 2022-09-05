@@ -6,6 +6,8 @@ import './App.css'
 // components
 import Home from './pages/Home/Home'
 import Todo from './pages/Todo/Todo'
+import Register from './pages/Register/Register'
+
 
 
 function App() {
@@ -14,6 +16,7 @@ function App() {
       <Routes>
         <Route path='/' element={<Home />}></Route>
         <Route path='/Todo' element={<Todo />}></Route>
+        <Route path='/Register' element={<Register />}></Route>
       </Routes>
     </Router>
   );

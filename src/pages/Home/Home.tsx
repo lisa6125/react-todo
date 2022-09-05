@@ -36,9 +36,9 @@ export default function Home() {
                     <div className="Home_chose_item">
                         {t('sign_in')}
                     </div>
-                    <div className="Home_chose_item">
+                    <Link to='/Register' className="Home_chose_item">
                         {t('register_account')}
-                    </div>
+                    </Link>
                     <Link to='/Todo' className="Home_chose_item">
                         {t('write_to-do_list')}
                     </Link>
