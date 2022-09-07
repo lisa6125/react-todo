@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form"
 import { useDispatch } from 'react-redux'
 //i18n
 import { useTranslation } from 'react-i18next'
-
+//style
 import { StyledRegister } from './StyledRegister'
 // action
 import { registerFetchUsers } from '../../redux'
@@ -15,13 +15,13 @@ import { AppDispatch } from '../../redux/store'
 interface TypeUser {
   email: string,
   password: string,
-  nikename: string,
+  nickname: string,
   repassword: string,
 }
 
 const Register = () => {
-  const { register, handleSubmit, formState: { errors }, watch, clearErrors } = useForm<TypeUser>()
-  const onSubmit = (data: any) => console.log(data)
+  const { register, handleSubmit, formState: { errors }, watch } = useForm<TypeUser>()
+
   const dispatch = useDispatch<AppDispatch>();
 
   const onSubmit = (data: any) => {
@@ -69,16 +69,16 @@ const Register = () => {
               <label >您的暱稱：
                 <input
 
-                  type="nikename"
+                  type="nickname"
                   placeholder="請輸入您的暱稱"
-                  {...register("nikename", {
+                  {...register("nickname", {
                     required: { value: true, message: "*此欄位必填" }
                   }
                   )}
                 />
               </label>
               <div className="error-message">
-                {errors.nikename?.message}
+                {errors.nickname?.message}
               </div>
             </div>
             <div className='formList'>
@@ -105,8 +105,15 @@ const Register = () => {
                   placeholder="再次輸入密碼"
                   {...register("repassword", {
                     required: { value: true, message: "*此欄位必填" },
-                    validate: { message: value => value === watch('password') ? '' : '*與密碼不同' },
-                  })}
+                    validate: {
+                      message: (value) => {
+                        if (value !== watch('password')) {
+                          return '*與密碼不同'
+                        }
+                      },
+                    }
+                  })
+                  }
                 />
               </label>
               <div className="error-message">

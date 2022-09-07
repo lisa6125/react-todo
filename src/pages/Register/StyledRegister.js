@@ -15,6 +15,11 @@ export const StyledRegister = styled.div`
     justify-content: center;
     align-items: center;
     gap: 0px 100px;
+    .pic {
+      @media screen and (max-width: 768px) {
+        display: none;
+      }
+    }
     &_form {
       width: 80%;
       max-width: 310px;
