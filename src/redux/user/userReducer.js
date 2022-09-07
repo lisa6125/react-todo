@@ -1,5 +1,5 @@
 import {
-  REGISTER_USERS_REQUEST,
+  FETCH_USERS_REQUEST,
   FETCH_USERS_SUCCESS,
   FETCH_USERS_FAILURE,
 } from './userTypes';
@@ -12,7 +12,7 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case REGISTER_USERS_REQUEST:
+    case FETCH_USERS_REQUEST:
       return {
         ...state,
         loading: true,
