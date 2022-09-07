@@ -2,10 +2,15 @@ import React, { useState, useEffect } from 'react'
 
 import { useForm } from "react-hook-form"
 
+import { useDispatch } from 'react-redux'
 //i18n
 import { useTranslation } from 'react-i18next'
 
 import { StyledRegister } from './StyledRegister'
+// action
+import { registerFetchUsers } from '../../redux'
+// dispatch type
+import { AppDispatch } from '../../redux/store'
 
 interface TypeUser {
   email: string,
@@ -17,6 +22,20 @@ interface TypeUser {
 const Register = () => {
   const { register, handleSubmit, formState: { errors }, watch, clearErrors } = useForm<TypeUser>()
   const onSubmit = (data: any) => console.log(data)
+  const dispatch = useDispatch<AppDispatch>();
+
+  const onSubmit = (data: any) => {
+    console.log(data)
+    let form = {
+      user: {
+        email: data.email,
+        nickname: data.nickname,
+        password: data.password
+      }
+    }
+    dispatch(registerFetchUsers(form))
+
+  }
   const onError = (errors: any) => console.log(errors)
   const { t, i18n } = useTranslation()
 
