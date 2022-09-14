@@ -8,6 +8,11 @@ import { v4 } from 'uuid'
 
 import { StyledTodo } from './StyledTodo'
 
+// redux
+import { useDispatch, useSelector } from 'react-redux'
+// dispatch type
+import { AppDispatch, RootStore } from '../../redux/store'
+
 interface TypeTodoItem {
     title: string,
     down: boolean,
@@ -19,6 +24,8 @@ type caseStateType = "All" | "unCompleted" | "Completed"
 export default function Todo() {
 
     const { t, i18n } = useTranslation()
+
+    const store = useSelector((store: RootStore) => store)
 
     const [todoArr, setTodoArr] = useState<TypeTodoItem[] | []>([]);
 
@@ -99,7 +106,7 @@ export default function Todo() {
                         <img src="./assets/images/logo.svg" alt="" />
                     </Link>
                     <div className="nav_user">
-                        王小明的代辦
+                        {store.userStatus.user}的代辦
                     </div>
                     <div className="nav_logout">{t('logout')}</div>
                 </div>

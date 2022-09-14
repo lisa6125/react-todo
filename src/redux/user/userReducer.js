@@ -2,12 +2,14 @@ import {
   FETCH_USERS_REQUEST,
   FETCH_USERS_SUCCESS,
   FETCH_USERS_FAILURE,
+  CHANGE_REGISTER_STATUS,
 } from './userTypes';
 
 const initialState = {
-  loading: false,
-  users: '',
+  loading: null,
+  user: '',
   error: '',
+  registerStatus: false,
 };
 
 const reducer = (state = initialState, action) => {
@@ -20,14 +22,19 @@ const reducer = (state = initialState, action) => {
     case FETCH_USERS_SUCCESS:
       return {
         loading: false,
-        users: action.payload,
+        user: action.payload,
         error: '',
       };
     case FETCH_USERS_FAILURE:
       return {
         loading: false,
-        users: '',
+        user: '',
         error: action.payload,
+      };
+    case CHANGE_REGISTER_STATUS:
+      return {
+        ...state,
+        registerStatus: action.payload,
       };
     default:
       return state;

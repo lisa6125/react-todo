@@ -1,16 +1,22 @@
 import React, { useState, useEffect } from 'react'
 
-import { useForm } from "react-hook-form"
+import { useNavigate } from 'react-router-dom'
 
-import { useDispatch } from 'react-redux'
+import axios from 'axios';
+
+import { useForm } from "react-hook-form"
+// redux
+import { useDispatch, useSelector } from 'react-redux'
 //i18n
 import { useTranslation } from 'react-i18next'
 //style
 import { StyledRegister } from './StyledRegister'
 // action
-import { registerFetchUsers } from '../../redux'
+import { registerAndSignInFetchUsers, signInFetchUsers } from '../../redux'
 // dispatch type
-import { AppDispatch } from '../../redux/store'
+import { AppDispatch, RootStore } from '../../redux/store'
+// 提示
+import toast from 'react-hot-toast';
 
 interface TypeUser {
   email: string,
@@ -20,12 +26,15 @@ interface TypeUser {
 }
 
 const Register = () => {
-  const { register, handleSubmit, formState: { errors }, watch } = useForm<TypeUser>()
+  const { register, handleSubmit, formState: { errors }, watch, reset } = useForm<TypeUser>()
 
-  const dispatch = useDispatch<AppDispatch>();
+  const dispatch = useDispatch<AppDispatch>()
+
+  const navigate = useNavigate()
+
+  const store = useSelector((store: RootStore) => store)
 
   const onSubmit = (data: any) => {
-    console.log(data)
     let form = {
       user: {
         email: data.email,
@@ -33,9 +42,24 @@ const Register = () => {
         password: data.password
       }
     }
-    dispatch(registerFetchUsers(form))
-
+    dispatch(registerAndSignInFetchUsers(form))
   }
+
+  useEffect(() => {
+    if (store.userStatus.registerStatus) {
+      signInFetchUsers()
+      navigate('/Todo')
+      reset()
+    }
+  }, [store])
+
+
+  useEffect(() => {
+    console.log(store.userStatus.user)
+    if (store.userStatus.user !== '') {
+      navigate(-1)
+    }
+  }, [])
   const onError = (errors: any) => console.log(errors)
   const { t, i18n } = useTranslation()
 

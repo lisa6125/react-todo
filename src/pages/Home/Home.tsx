@@ -9,8 +9,15 @@ import { useTranslation } from 'react-i18next'
 
 import { RiGlobalLine } from "react-icons/ri"
 
+// redux
+import { useSelector } from 'react-redux'
+// dispatch type
+import { RootStore } from '../../redux/store'
+
 export default function Home() {
     const { t, i18n } = useTranslation();
+
+    const store = useSelector((store: RootStore) => store)
 
     const [openLang, setOpenLang] = useState<boolean>(false);
     const [Lang, setLang] = useState<string>(i18n.language);
@@ -36,9 +43,12 @@ export default function Home() {
                     <div className="Home_chose_item">
                         {t('sign_in')}
                     </div>
-                    <Link to='/Register' className="Home_chose_item">
-                        {t('register_account')}
-                    </Link>
+                    {
+                        store.userStatus.user == '' &&
+                        <Link to='/Register' className="Home_chose_item">
+                            {t('register_account')}
+                        </Link>
+                    }
                     <Link to='/Todo' className="Home_chose_item">
                         {t('write_to-do_list')}
                     </Link>
