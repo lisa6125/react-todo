@@ -44,14 +44,14 @@ export default function Home() {
                         {t('sign_in')}
                     </div>
                     {
-                        store.userStatus.user == '' &&
-                        <Link to='/Register' className="Home_chose_item">
-                            {t('register_account')}
-                        </Link>
+                        store.userStatus.user == '' ?
+                            <Link to='/Register' className="Home_chose_item">
+                                {t('register_account')}
+                            </Link> :
+                            <Link to='/Todo' className="Home_chose_item">
+                                {t('write_to-do_list')}
+                            </Link>
                     }
-                    <Link to='/Todo' className="Home_chose_item">
-                        {t('write_to-do_list')}
-                    </Link>
                 </div>
                 <div className="Home_Language">
                     <div className="Home_Language_text" onClick={toggleOpenLang}>
