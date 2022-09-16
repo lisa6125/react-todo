@@ -2,6 +2,9 @@ import axios from 'axios';
 // 提示
 import toast from 'react-hot-toast';
 
+//plugin
+import Cookies from 'js-cookie';
+
 import {
   FETCH_USERS_REQUEST,
   FETCH_USERS_SUCCESS,
@@ -36,6 +39,7 @@ export const signInFetchUsers = (form) => {
       .then((response) => {
         const user = response.data.nickname;
         toast.success(response.data.message);
+        Cookies.set('token', response.headers.authorization);
         dispatch(fetchUsersSuccess(user));
       })
       .catch((error) => {

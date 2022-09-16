@@ -21,12 +21,14 @@ const reducer = (state = initialState, action) => {
       };
     case FETCH_USERS_SUCCESS:
       return {
+        ...state,
         loading: false,
         user: action.payload,
         error: '',
       };
     case FETCH_USERS_FAILURE:
       return {
+        ...state,
         loading: false,
         user: '',
         error: action.payload,
