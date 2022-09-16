@@ -46,20 +46,12 @@ const Register = () => {
   }
 
   useEffect(() => {
-    if (store.userStatus.registerStatus) {
-      signInFetchUsers()
-      navigate('/Todo')
+    if (store.userStatus.registerStatus && store.userStatus.user) {
       reset()
+      navigate('/Todo')
     }
   }, [store])
 
-
-  useEffect(() => {
-    console.log(store.userStatus.user)
-    if (store.userStatus.user !== '') {
-      navigate(-1)
-    }
-  }, [])
   const onError = (errors: any) => console.log(errors)
   const { t, i18n } = useTranslation()
 
