@@ -56,7 +56,7 @@ export const StyledTodo = styled.div`
     }
     &_listBox {
       height: 100%;
-      max-height: 480px;
+      max-height: 580px;
       width: 100%;
       background: #ffffff;
       box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.15);
@@ -85,6 +85,19 @@ export const StyledTodo = styled.div`
       }
       &_list {
         padding: 24px;
+        overflow: auto;
+        max-height: 350px;
+        &::-webkit-scrollbar-track {
+          border-radius: 10px;
+          margin: 5px;
+        }
+        &::-webkit-scrollbar {
+          width: 5px;
+        }
+        &::-webkit-scrollbar-thumb {
+          border-radius: 5px;
+          background-color: #c1c1c1;
+        }
         .empty {
           text-align: center;
           display: flex;
