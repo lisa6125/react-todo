@@ -97,7 +97,7 @@ export default function Todo() {
         } else {
             setFilterTodoArr(store.todoStatus.todo);
         }
-    }, [store.todoStatus.todo, caseState])
+    }, [store.todoStatus, caseState])
     return (
         <StyledTodo>
             <div className='todo'>
