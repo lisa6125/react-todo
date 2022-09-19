@@ -1,7 +1,6 @@
 import axios from 'axios';
 // 提示
 import toast from 'react-hot-toast';
-
 //plugin
 import Cookies from 'js-cookie';
 
@@ -45,6 +44,26 @@ export const signInFetchUsers = (form) => {
       .catch((error) => {
         toast.error(error.response.data.message);
         dispatch(fetchUsersFailure(error.response.data.message));
+      });
+  };
+};
+
+export const logOutFetchUser = () => {
+  return (dispatch) => {
+    dispatch(fetchUsersRequest());
+    axios
+      .delete('https://todoo.5xcamp.us/users/sign_out', {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: Cookies.get('token'),
+        },
+      })
+      .then((response) => {
+        toast.success(response.data.message);
+        dispatch(fetchUsersSuccess(''));
+      })
+      .catch((error) => {
+        toast.error(error.response.data.message);
       });
   };
 };
