@@ -17,5 +17,16 @@
 "ClearCompletedItems":"清除已完成事項",
 "NoTo-dosYet":"尚無代辦事項",
 "NoTo-dosYetToBeCompleted":"尚無待完成代辦事項",
-"NoTo-dosCompletedYet":"尚無已完成代辦事項"
+"NoTo-dosCompletedYet":"尚無已完成代辦事項",
+"PleaseEnterEmail":"請輸入Email",
+"PleaseEnterNickname":"請輸入暱稱",
+"PleaseEnterPassword":"請輸入密碼",
+"PleaseEnterThePasswordAgain":"請再次輸入密碼",
+"ThisFieldIsRequired":"此欄位必填",
+"DoesNotMeetEmailRules":"不符合 Email 規則",
+"YourNickname":"您的暱稱",
+"Password":"密碼",
+"PasswordMustBeAtLeast8":"密碼至少為 8 碼",
+"EnterThePasswordAgain":"再次輸入密碼",
+"DifferentfromPassword":"與密碼不同"
 }

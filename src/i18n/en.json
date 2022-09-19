@@ -17,5 +17,16 @@
 "ClearCompletedItems":"Clear completed items",
 "NoTo-dosYet":"No to-dos yet",
 "NoTo-dosYetToBeCompleted":"No to-dos yet to be completed",
-"NoTo-dosCompletedYet":"No to-dos completed yet"
+"NoTo-dosCompletedYet":"No to-dos completed yet",
+"PleaseEnterEmail":"Please enter Email",
+"PleaseEnterNickname":"Please enter a nickname",
+"PleaseEnterPassword":"Please enter password",
+"PleaseEnterThePasswordAgain":"Please enter the password again",
+"ThisFieldIsRequired":"This field is required",
+"DoesNotMeetEmailRules":"Does not meet email rules",
+"YourNickname":"Your nickname",
+"Password":"Password",
+"PasswordMustBeAtLeast8":"Password must be at least 8",
+"EnterThePasswordAgain":"Enter the password again",
+"DifferentfromPassword":"Different from password"
 }

@@ -63,10 +63,10 @@ export default function SignIn() {
                 <input
 
                   type="email"
-                  placeholder="請輸入Email"
+                  placeholder={t('PleaseEnterEmail')}
                   {...register("email", {
-                    required: { value: true, message: "*此欄位必填" },
-                    pattern: { value: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g, message: "*不符合 Email 規則" }
+                    required: { value: true, message: "*" + t('ThisFieldIsRequired') },
+                    pattern: { value: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g, message: "*" + t('DoesNotMeetEmailRules') }
                   })}
                 />
               </label>
@@ -79,10 +79,9 @@ export default function SignIn() {
                 密碼：
                 <input
                   type="password"
-                  placeholder="請輸入密碼"
+                  placeholder={t('PleaseEnterPassword')}
                   {...register("password", {
-                    required: { value: true, message: "*此欄位必填" },
-                    minLength: { value: 8, message: "*密碼至少為 8 碼" },
+                    required: { value: true, message: "*" + t('ThisFieldIsRequired') },
                   })}
                 />
               </label>
