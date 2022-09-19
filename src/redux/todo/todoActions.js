@@ -8,6 +8,7 @@ import getTodoList from '../../api/getTodoList';
 import addTodo from '../../api/addTodo';
 import toggleTodo from '../../api/toggleTodo';
 import deleteTodo from '../../api/deleteTodo';
+import deleteAlreadyDown from '../../api/deleteAlreadyDown';
 
 export const fetchDataTodo = () => {
   return async (dispatch) => {
@@ -64,6 +65,29 @@ export const fetchDeleteTodo = (store, id) => {
       });
 
       dispatch(setTodoInStore(todoList));
+    } catch (err) {
+      console.log(err);
+      toast.error(err.response);
+    }
+  };
+};
+
+export const fetchDeleteAlreadyDownTodo = (store) => {
+  return async (dispatch) => {
+    try {
+      let todoList = store.todoStatus.todo;
+      let ids = [];
+      let newTodoList = todoList.filter((element) => {
+        return !element.completed_at;
+      });
+      todoList.forEach((element, index) => {
+        if (element.completed_at) {
+          ids.push(element.id);
+        }
+      });
+      await deleteAlreadyDown(ids);
+
+      dispatch(setTodoInStore(newTodoList));
     } catch (err) {
       console.log(err);
       toast.error(err.response);

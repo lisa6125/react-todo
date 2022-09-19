@@ -13,7 +13,7 @@ import { useDispatch, useSelector } from 'react-redux'
 // dispatch type
 import { AppDispatch, RootStore } from '../../redux/store'
 
-import { fetchDataTodo, fetchAddTodo, logOutFetchUser, fetchToggleTodo, fetchDeleteTodo } from '../../redux'
+import { fetchDataTodo, fetchAddTodo, logOutFetchUser, fetchToggleTodo, fetchDeleteTodo, fetchDeleteAlreadyDownTodo } from '../../redux'
 
 interface TypeTodoItem {
     content: string,
@@ -57,11 +57,9 @@ export default function Todo() {
         (todoInputRef.current as HTMLInputElement).value = '';
         setTodoInput('');
     };
-    const cleanAllTodo = () => {
-        if (todoArr.length === 0) return;
-        setTodoArr(todoArr.filter((item) => {
-            return !item.completed_at
-        }));
+    const cleanAlreadyDownTodo = () => {
+        if (store.todoStatus.todo.length === 0) return;
+        dispatch(fetchDeleteAlreadyDownTodo(store))
     }
     const handleAlreadyDone = (idx: number) => {
         dispatch(fetchToggleTodo(store, idx))
@@ -152,7 +150,7 @@ export default function Todo() {
                                     filterTodoArr.length + ' ' + t('itemsUnCompleted') :
                                     filterTodoArr.length + ' ' + t('itemsCompleted')
                             }</div>
-                            <div className="clearDone" onClick={cleanAllTodo}>{t('ClearCompletedItems')}</div>
+                            <div className="clearDone" onClick={() => cleanAlreadyDownTodo()}>{t('ClearCompletedItems')}</div>
                         </div>
                     </div>
                 </div>
