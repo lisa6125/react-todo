@@ -13,7 +13,7 @@ import { useDispatch, useSelector } from 'react-redux'
 // dispatch type
 import { AppDispatch, RootStore } from '../../redux/store'
 
-import { fetchDataTodo, fetchAddTodo, logOutFetchUser, fetchToggleTodo } from '../../redux'
+import { fetchDataTodo, fetchAddTodo, logOutFetchUser, fetchToggleTodo, fetchDeleteTodo } from '../../redux'
 
 interface TypeTodoItem {
     content: string,
@@ -70,9 +70,7 @@ export default function Todo() {
         setCaseState(value);
     }
     const handleDeleteItem = (idx: number) => {
-        setTodoArr(todoArr.filter((item) => {
-            return item.id !== idx
-        }));
+        dispatch(fetchDeleteTodo(store, idx))
     }
 
     const handleUserSignOut = () => {

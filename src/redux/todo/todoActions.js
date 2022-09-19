@@ -7,6 +7,7 @@ import { FETCH_SET_TODOLIST } from './todoTypes';
 import getTodoList from '../../api/getTodoList';
 import addTodo from '../../api/addTodo';
 import toggleTodo from '../../api/toggleTodo';
+import deleteTodo from '../../api/deleteTodo';
 
 export const fetchDataTodo = () => {
   return async (dispatch) => {
@@ -46,6 +47,25 @@ export const fetchToggleTodo = (store, id) => {
       });
       dispatch(setTodoInStore(todoList));
     } catch (err) {
+      toast.error(err.response);
+    }
+  };
+};
+
+export const fetchDeleteTodo = (store, id) => {
+  return async (dispatch) => {
+    try {
+      let todoList = store.todoStatus.todo;
+      await deleteTodo(id);
+      todoList.forEach((element, index) => {
+        if (element.id == id) {
+          todoList.splice(index, 1);
+        }
+      });
+
+      dispatch(setTodoInStore(todoList));
+    } catch (err) {
+      console.log(err);
       toast.error(err.response);
     }
   };
