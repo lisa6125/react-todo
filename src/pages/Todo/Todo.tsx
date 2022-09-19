@@ -15,6 +15,19 @@ import { AppDispatch, RootStore } from '../../redux/store'
 
 import { fetchDataTodo, fetchAddTodo, logOutFetchUser, fetchToggleTodo, fetchDeleteTodo, fetchDeleteAlreadyDownTodo } from '../../redux'
 
+// img
+import logo from '../../assets/images/logo.svg'
+import add from '../../assets/images/add.svg'
+import Vector from '../../assets/images/Vector.svg'
+import deleteIcon from '../../assets/images/delete.svg'
+import empty from '../../assets/images/empty.png'
+
+
+
+
+
+
+
 interface TypeTodoItem {
     content: string,
     completed_at: boolean,
@@ -101,7 +114,7 @@ export default function Todo() {
             <div className='todo'>
                 <div className="nav">
                     <Link to='/' className="nav_logo">
-                        <img src="./assets/images/logo.svg" alt="" />
+                        <img src={logo} alt="" />
                     </Link>
                     <div className="nav_user">
                         {store.userStatus.user}的代辦
@@ -112,7 +125,7 @@ export default function Todo() {
                     <div className="todo_input">
                         <input type="text" placeholder={t('addToDo')} ref={todoInputRef} onChange={(e) => inputTodoItem(e.target.value)} onKeyDown={(e) => addTodoItem(e)} />
                         <div className="addIcon" onClick={clickAddTodoItem}>
-                            <img src="./assets/images/add.svg" alt="" />
+                            <img src={add} alt="" />
                         </div>
                     </div>
                     <div className="todo_listBox">
@@ -128,18 +141,18 @@ export default function Todo() {
                                         return (
                                             <div className='todoItem' key={item.id}>
                                                 <div className="checkBox" onClick={() => handleAlreadyDone(item.id)}>
-                                                    {item.completed_at ? <img src="./assets/images/Vector.svg" alt="" /> : ''}
+                                                    {item.completed_at ? <img src={Vector} alt="" /> : ''}
                                                 </div>
                                                 <span style={{ textDecoration: item.completed_at ? 'line-through' : 'none' }}>{item.content}</span>
                                                 <div className="delete" onClick={() => handleDeleteItem(item.id)}>
-                                                    <img src="./assets/images/delete.svg" alt="" />
+                                                    <img src={deleteIcon} alt="" />
                                                 </div>
                                             </div>
                                             // <></>
                                         )
                                     }) :
                                     <div className="empty">
-                                        <img src="./assets/images/empty.png" alt="" />
+                                        <img src={empty} alt="" />
                                         <span>{caseState === 'All' ? t('NoTo-dosYet') : caseState === 'unCompleted' ? t('NoTo-dosYetToBeCompleted') : t('NoTo-dosCompletedYet')}</span>
                                     </div>
                             }

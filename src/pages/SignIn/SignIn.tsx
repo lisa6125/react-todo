@@ -14,6 +14,9 @@ import { signInFetchUsers } from '../../redux'
 //i18n
 import { useTranslation } from 'react-i18next'
 
+// img
+import boardMan from '../../assets/images/board-man.png'
+
 interface TypeUser {
   email: string,
   password: string,
@@ -53,7 +56,7 @@ export default function SignIn() {
     <StyledSignIn>
       <div className="signIn">
         <div className="pic">
-          <img src="../assets/images/board-man.png" alt="" />
+          <img src={boardMan} alt="" />
         </div>
         <div className="signIn_form">
           <div className="title">{t('sign_in')}</div>

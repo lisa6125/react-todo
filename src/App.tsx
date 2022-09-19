@@ -1,5 +1,5 @@
 import React from 'react'
-import { Navigate, Routes, Route, BrowserRouter as Router } from 'react-router-dom'
+import { Navigate, Routes, Route, HashRouter as Router } from 'react-router-dom'
 import { Toaster } from 'react-hot-toast';
 
 import { Provider, useSelector } from "react-redux";

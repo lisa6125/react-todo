@@ -14,6 +14,9 @@ import { registerAndSignInFetchUsers } from '../../redux'
 // dispatch type
 import { AppDispatch, RootStore } from '../../redux/store'
 
+// img
+import boardMan from '../../assets/images/board-man.png'
+
 interface TypeUser {
   email: string,
   password: string,
@@ -56,7 +59,7 @@ export default function Register() {
     <StyledRegister>
       <div className="register">
         <div className="pic">
-          <img src="../assets/images/board-man.png" alt="" />
+          <img src={boardMan} alt="" />
         </div>
         <div className="register_form">
           <div className="title">{t('register_account')}</div>

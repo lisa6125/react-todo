@@ -14,6 +14,9 @@ import { useSelector } from 'react-redux'
 // dispatch type
 import { RootStore } from '../../redux/store'
 
+// img
+import boardMan from '../../assets/images/board-man.png'
+
 export default function Home() {
     const { t, i18n } = useTranslation();
 
@@ -36,7 +39,7 @@ export default function Home() {
         <StyledHome>
             <div className='Home'>
                 <div className="Home_pic">
-                    <img src="../assets/images/board-man.png" alt="" />
+                    <img src={boardMan} alt="" />
                 </div>
                 <div className="Home_text">{t('chose_where_you_want')}</div>
                 <div className="Home_chose">
