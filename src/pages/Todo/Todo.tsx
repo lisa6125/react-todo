@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useState, useRef, useEffect, useCallback } from 'react'
 import { Link } from 'react-router-dom'
 import { produce } from 'immer'
 //i18n
@@ -13,9 +13,11 @@ import { useDispatch, useSelector } from 'react-redux'
 // dispatch type
 import { AppDispatch, RootStore } from '../../redux/store'
 
+import { fetchDataTodo, fetchAddTodo, logOutFetchUser } from '../../redux'
+
 interface TypeTodoItem {
-    title: string,
-    down: boolean,
+    content: string,
+    completed_at: boolean,
     id: number
 }
 
@@ -27,9 +29,11 @@ export default function Todo() {
 
     const store = useSelector((store: RootStore) => store)
 
-    const [todoArr, setTodoArr] = useState<TypeTodoItem[] | []>([]);
+    const dispatch = useDispatch<AppDispatch>()
 
-    const [filterTodoArr, setFilterTodoArr] = useState<TypeTodoItem[] | []>([]);
+    const [todoArr, setTodoArr] = useState<TypeTodoItem[] | []>(store.todoStatus.todo);
+
+    const [filterTodoArr, setFilterTodoArr] = useState<TypeTodoItem[] | []>(todoArr);
 
     const [todoInput, setTodoInput] = useState<string>('');
 
@@ -43,31 +47,27 @@ export default function Todo() {
     }
     const addTodoItem = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key !== "Enter") return;
-        setTodoArr((pre: any) => {
-            return [{ title: todoInput, down: false, id: v4() }, ...pre];
-        });
+        dispatch(fetchAddTodo(store, todoInput));
         (e.target as HTMLInputElement).value = '';
         setTodoInput('');
     };
     const clickAddTodoItem = () => {
         if (todoInput === '') return;
-        setTodoArr((pre: any) => {
-            return [{ title: todoInput, down: false, id: v4() }, ...pre];
-        });
+        dispatch(fetchAddTodo(store, todoInput));
         (todoInputRef.current as HTMLInputElement).value = '';
         setTodoInput('');
     };
     const cleanAllTodo = () => {
         if (todoArr.length === 0) return;
         setTodoArr(todoArr.filter((item) => {
-            return !item.down
+            return !item.completed_at
         }));
     }
     const handleAlreadyDone = (idx: number) => {
         setTodoArr(produce((draftState) => {
             draftState.map((item) => {
                 if (idx === item.id) {
-                    item.down = !item.down
+                    item.completed_at = !item.completed_at
                 }
             })
         }));
@@ -81,23 +81,31 @@ export default function Todo() {
         }));
     }
 
+    const handleUserSignOut = () => {
+        dispatch(logOutFetchUser())
+    }
+
+    useEffect(() => {
+        dispatch(fetchDataTodo())
+    }, [])
+
     useEffect(() => {
         if (caseState === 'unCompleted') {
             setFilterTodoArr(
-                todoArr.filter((item) => {
-                    return !item.down
+                store.todoStatus.todo.filter((item) => {
+                    return !item.completed_at
                 })
             );
         } else if (caseState === 'Completed') {
             setFilterTodoArr(
-                todoArr.filter((item) => {
-                    return item.down
+                store.todoStatus.todo.filter((item) => {
+                    return item.completed_at
                 })
             );
         } else {
-            setFilterTodoArr(todoArr);
+            setFilterTodoArr(store.todoStatus.todo);
         }
-    }, [todoArr, caseState])
+    }, [store.todoStatus.todo, caseState])
     return (
         <StyledTodo>
             <div className='todo'>
@@ -108,7 +116,7 @@ export default function Todo() {
                     <div className="nav_user">
                         {store.userStatus.user}的代辦
                     </div>
-                    <div className="nav_logout">{t('logout')}</div>
+                    <div className="nav_logout" onClick={handleUserSignOut}>{t('logout')}</div>
                 </div>
                 <div className="todo_container">
                     <div className="todo_input">
@@ -130,9 +138,9 @@ export default function Todo() {
                                         return (
                                             <div className='todoItem' key={item.id}>
                                                 <div className="checkBox" onClick={() => handleAlreadyDone(item.id)}>
-                                                    {item.down ? <img src="./assets/images/Vector.svg" alt="" /> : ''}
+                                                    {item.completed_at ? <img src="./assets/images/Vector.svg" alt="" /> : ''}
                                                 </div>
-                                                <span style={{ textDecoration: item.down ? 'line-through' : 'none' }}>{item.title}</span>
+                                                <span style={{ textDecoration: item.completed_at ? 'line-through' : 'none' }}>{item.content}</span>
                                                 <div className="delete" onClick={() => handleDeleteItem(item.id)}>
                                                     <img src="./assets/images/delete.svg" alt="" />
                                                 </div>
