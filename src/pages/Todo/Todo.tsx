@@ -13,7 +13,7 @@ import { useDispatch, useSelector } from 'react-redux'
 // dispatch type
 import { AppDispatch, RootStore } from '../../redux/store'
 
-import { fetchDataTodo, fetchAddTodo, logOutFetchUser } from '../../redux'
+import { fetchDataTodo, fetchAddTodo, logOutFetchUser, fetchToggleTodo } from '../../redux'
 
 interface TypeTodoItem {
     content: string,
@@ -47,13 +47,13 @@ export default function Todo() {
     }
     const addTodoItem = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key !== "Enter") return;
-        dispatch(fetchAddTodo(store, todoInput));
+        dispatch(fetchAddTodo(todoInput));
         (e.target as HTMLInputElement).value = '';
         setTodoInput('');
     };
     const clickAddTodoItem = () => {
         if (todoInput === '') return;
-        dispatch(fetchAddTodo(store, todoInput));
+        dispatch(fetchAddTodo(todoInput));
         (todoInputRef.current as HTMLInputElement).value = '';
         setTodoInput('');
     };
@@ -64,13 +64,7 @@ export default function Todo() {
         }));
     }
     const handleAlreadyDone = (idx: number) => {
-        setTodoArr(produce((draftState) => {
-            draftState.map((item) => {
-                if (idx === item.id) {
-                    item.completed_at = !item.completed_at
-                }
-            })
-        }));
+        dispatch(fetchToggleTodo(store, idx))
     }
     function handleChangeCaseState<Type extends caseStateType>(value: Type) {
         setCaseState(value);
