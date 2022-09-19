@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 //style
 import { StyledSignIn } from './StyledSignIn'
 
@@ -91,6 +91,7 @@ export default function SignIn() {
               </div>
             </div>
             <input type="submit" value={t('sign_in')} />
+            <Link to='/Register' className="register">{t('register_account')}</Link>
           </form>
         </div>
       </div>

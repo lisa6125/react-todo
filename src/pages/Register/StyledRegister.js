@@ -81,6 +81,8 @@ export const StyledRegister = styled.div`
         font-weight: 700;
         font-size: 16px;
         line-height: 23px;
+        text-decoration: none;
+        color: #333333;
         cursor: pointer;
       }
     }

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 
 import { useForm } from "react-hook-form"
 // redux
@@ -135,7 +135,7 @@ export default function Register() {
               </div>
             </div>
             <input type="submit" value={t('register_account')} />
-            <div className="login">{t('sign_in')}</div>
+            <Link to='/SignIn' className="login">{t('sign_in')}</Link>
           </form>
         </div>
       </div>

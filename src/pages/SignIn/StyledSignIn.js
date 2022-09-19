@@ -77,10 +77,12 @@ export const StyledSignIn = styled.div`
         margin-top: 8px;
         margin-bottom: 8px;
       }
-      .login {
+      .register {
         font-weight: 700;
         font-size: 16px;
         line-height: 23px;
+        text-decoration: none;
+        color: #333333;
         cursor: pointer;
       }
     }
