@@ -2,8 +2,6 @@ import React, { useState, useEffect } from 'react'
 
 import { useNavigate } from 'react-router-dom'
 
-import axios from 'axios';
-
 import { useForm } from "react-hook-form"
 // redux
 import { useDispatch, useSelector } from 'react-redux'
@@ -25,7 +23,7 @@ interface TypeUser {
   repassword: string,
 }
 
-const Register = () => {
+export default function Register() {
   const { register, handleSubmit, formState: { errors }, watch, reset } = useForm<TypeUser>()
 
   const dispatch = useDispatch<AppDispatch>()
@@ -144,5 +142,3 @@ const Register = () => {
     </StyledRegister>
   );
 }
-
-export default Register;
