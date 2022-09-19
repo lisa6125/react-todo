@@ -22,5 +22,13 @@ export interface RootStore {
     loading: boolean,
     error: string,
     registerStatus:boolean
+  },
+  todoStatus: {
+    todo: {
+      id: number,
+      content: string,
+      completed_at: boolean,
+    }[]
   }
 }
+
