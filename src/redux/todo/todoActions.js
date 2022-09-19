@@ -20,11 +20,14 @@ export const fetchDataTodo = () => {
   };
 };
 
-export const fetchAddTodo = (content) => {
+export const fetchAddTodo = (store, content) => {
   return async (dispatch) => {
     try {
-      await addTodo(content);
-      dispatch(fetchDataTodo());
+      let todoList = store.todoStatus.todo;
+      let res = await addTodo(content);
+      res.completed_at = null;
+      todoList.push(res);
+      dispatch(setTodoInStore(todoList));
     } catch (err) {
       toast.error(err.response);
     }

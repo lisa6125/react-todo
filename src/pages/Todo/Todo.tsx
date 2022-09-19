@@ -47,13 +47,13 @@ export default function Todo() {
     }
     const addTodoItem = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key !== "Enter") return;
-        dispatch(fetchAddTodo(todoInput));
+        dispatch(fetchAddTodo(store, todoInput));
         (e.target as HTMLInputElement).value = '';
         setTodoInput('');
     };
     const clickAddTodoItem = () => {
         if (todoInput === '') return;
-        dispatch(fetchAddTodo(todoInput));
+        dispatch(fetchAddTodo(store, todoInput));
         (todoInputRef.current as HTMLInputElement).value = '';
         setTodoInput('');
     };
