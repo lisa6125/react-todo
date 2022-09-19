@@ -11,6 +11,7 @@ import './App.css'
 import Home from './pages/Home/Home'
 import Todo from './pages/Todo/Todo'
 import Register from './pages/Register/Register'
+import SignIn from './pages/SignIn/SignIn'
 
 type RequireAuthProps = {
   children: React.ReactElement,
@@ -34,6 +35,7 @@ function App() {
             </RequireAuth>
           }></Route>
           <Route path='/Register' element={<Register />}></Route>
+          <Route path='/SignIn' element={<SignIn />}></Route>
         </Routes>
         <Toaster />
       </Router>

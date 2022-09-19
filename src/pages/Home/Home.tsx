@@ -40,14 +40,17 @@ export default function Home() {
                 </div>
                 <div className="Home_text">{t('chose_where_you_want')}</div>
                 <div className="Home_chose">
-                    <div className="Home_chose_item">
-                        {t('sign_in')}
-                    </div>
                     {
                         store.userStatus.user == '' ?
-                            <Link to='/Register' className="Home_chose_item">
-                                {t('register_account')}
-                            </Link> :
+                            <>
+                                <Link to='/SignIn' className="Home_chose_item">
+                                    {t('sign_in')}
+                                </Link>
+                                <Link to='/Register' className="Home_chose_item">
+                                    {t('register_account')}
+                                </Link>
+                            </>
+                            :
                             <Link to='/Todo' className="Home_chose_item">
                                 {t('write_to-do_list')}
                             </Link>
