@@ -22,10 +22,10 @@ export const fetchDataTodo = () => {
   };
 };
 
-export const fetchAddTodo = (store, content) => {
+export const fetchAddTodo = (todo, content) => {
   return async (dispatch) => {
     try {
-      let todoList = store.todoStatus.todo;
+      let todoList = todo;
       let res = await addTodo(content);
       res.completed_at = null;
       todoList.push(res);
@@ -36,10 +36,10 @@ export const fetchAddTodo = (store, content) => {
   };
 };
 
-export const fetchToggleTodo = (store, id) => {
+export const fetchToggleTodo = (todo, id) => {
   return async (dispatch) => {
     try {
-      const todoList = store.todoStatus.todo;
+      const todoList = todo;
       const res = await toggleTodo(id);
       todoList.map((item) => {
         if (item.id === id) {
@@ -53,10 +53,10 @@ export const fetchToggleTodo = (store, id) => {
   };
 };
 
-export const fetchDeleteTodo = (store, id) => {
+export const fetchDeleteTodo = (todo, id) => {
   return async (dispatch) => {
     try {
-      const todoList = store.todoStatus.todo;
+      const todoList = todo;
       await deleteTodo(id);
       todoList.forEach((element, index) => {
         if (element.id === id) {
@@ -72,10 +72,10 @@ export const fetchDeleteTodo = (store, id) => {
   };
 };
 
-export const fetchDeleteAlreadyDownTodo = (store) => {
+export const fetchDeleteAlreadyDownTodo = (todo) => {
   return async (dispatch) => {
     try {
-      const todoList = store.todoStatus.todo;
+      const todoList = todo;
       let ids = [];
       const newTodoList = todoList.filter((element) => {
         return !element.completed_at;

@@ -19,8 +19,8 @@ type RequireAuthProps = {
 };
 
 function RequireAuth({ children, redirectTo }: RequireAuthProps): JSX.Element {
-  const store = useSelector((store: RootStore) => store);
-  return store.userStatus.user !== "" ? children : <Navigate to={redirectTo} />;
+  const userStatus = useSelector((store: RootStore) => store.userStatus);
+  return userStatus.user !== "" ? children : <Navigate to={redirectTo} />;
 }
 
 function App() {

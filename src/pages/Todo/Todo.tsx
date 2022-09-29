@@ -40,11 +40,12 @@ export default function Todo() {
 
     const { t, i18n } = useTranslation()
 
-    const store = useSelector((store: RootStore) => store)
+    const todoStatus = useSelector((store: RootStore) => store.todoStatus)
+    const userStatus = useSelector((store: RootStore) => store.userStatus)
 
     const dispatch = useDispatch<AppDispatch>()
 
-    const [todoArr, setTodoArr] = useState<TypeTodoItem[] | []>(store.todoStatus.todo);
+    const [todoArr, setTodoArr] = useState<TypeTodoItem[] | []>(todoStatus.todo);
 
     const [filterTodoArr, setFilterTodoArr] = useState<TypeTodoItem[] | []>(todoArr);
 
@@ -60,28 +61,28 @@ export default function Todo() {
     }
     const addTodoItem = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key !== "Enter") return;
-        dispatch(fetchAddTodo(store, todoInput));
+        dispatch(fetchAddTodo(todoStatus.todo, todoInput));
         (e.target as HTMLInputElement).value = '';
         setTodoInput('');
     };
     const clickAddTodoItem = () => {
         if (todoInput === '') return;
-        dispatch(fetchAddTodo(store, todoInput));
+        dispatch(fetchAddTodo(todoStatus.todo, todoInput));
         (todoInputRef.current as HTMLInputElement).value = '';
         setTodoInput('');
     };
     const cleanAlreadyDownTodo = () => {
-        if (store.todoStatus.todo.length === 0) return;
-        dispatch(fetchDeleteAlreadyDownTodo(store))
+        if (todoStatus.todo.length === 0) return;
+        dispatch(fetchDeleteAlreadyDownTodo(todoStatus.todo))
     }
     const handleAlreadyDone = (idx: number) => {
-        dispatch(fetchToggleTodo(store, idx))
+        dispatch(fetchToggleTodo(todoStatus.todo, idx))
     }
     function handleChangeCaseState<Type extends caseStateType>(value: Type) {
         setCaseState(value);
     }
     const handleDeleteItem = (idx: number) => {
-        dispatch(fetchDeleteTodo(store, idx))
+        dispatch(fetchDeleteTodo(todoStatus.todo, idx))
     }
 
     const handleUserSignOut = () => {
@@ -95,20 +96,20 @@ export default function Todo() {
     useEffect(() => {
         if (caseState === 'unCompleted') {
             setFilterTodoArr(
-                store.todoStatus.todo.filter((item) => {
+                todoStatus.todo.filter((item) => {
                     return !item.completed_at
                 })
             );
         } else if (caseState === 'Completed') {
             setFilterTodoArr(
-                store.todoStatus.todo.filter((item) => {
+                todoStatus.todo.filter((item) => {
                     return item.completed_at
                 })
             );
         } else {
-            setFilterTodoArr(store.todoStatus.todo);
+            setFilterTodoArr(todoStatus.todo);
         }
-    }, [store.todoStatus, caseState])
+    }, [todoStatus, caseState])
     return (
         <StyledTodo>
             <div className='todo'>
@@ -117,7 +118,7 @@ export default function Todo() {
                         <img src={logo} alt="" />
                     </Link>
                     <div className="nav_user">
-                        {store.userStatus.user}的代辦
+                        {userStatus.user}的代辦
                     </div>
                     <div className="nav_logout" onClick={handleUserSignOut}>{t('logout')}</div>
                 </div>

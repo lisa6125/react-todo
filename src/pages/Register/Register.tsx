@@ -31,7 +31,7 @@ export default function Register() {
 
   const navigate = useNavigate()
 
-  const store = useSelector((store: RootStore) => store)
+  const userStatus = useSelector((store: RootStore) => store.userStatus)
 
   const onSubmit = (data: any) => {
     const form = {
@@ -45,11 +45,11 @@ export default function Register() {
   }
 
   useEffect(() => {
-    if (store.userStatus.registerStatus && store.userStatus.user) {
+    if (userStatus.registerStatus && userStatus.user) {
       reset()
       navigate('/Todo')
     }
-  }, [store])
+  }, [userStatus])
 
   const onError = (errors: any) => console.log(errors)
   const { t, i18n } = useTranslation()
@@ -71,8 +71,8 @@ export default function Register() {
                   type="email"
                   placeholder={t('PleaseEnterEmail')}
                   {...register("email", {
-                    required: { value: true, message:`*${t('ThisFieldIsRequired')}`},
-                    pattern: { value: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g, message:`*${t('DoesNotMeetEmailRules')}`}
+                    required: { value: true, message: `*${t('ThisFieldIsRequired')}` },
+                    pattern: { value: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g, message: `*${t('DoesNotMeetEmailRules')}` }
                   })}
                 />
               </label>
@@ -87,7 +87,7 @@ export default function Register() {
                   type="nickname"
                   placeholder={t('PleaseEnterNickname')}
                   {...register("nickname", {
-                    required: { value: true, message: `*${t('ThisFieldIsRequired') }` }
+                    required: { value: true, message: `*${t('ThisFieldIsRequired')}` }
                   }
                   )}
                 />
@@ -103,8 +103,8 @@ export default function Register() {
                   type="password"
                   placeholder={t('PleaseEnterPassword')}
                   {...register("password", {
-                    required: { value: true, message: `*${t('ThisFieldIsRequired') }`},
-                    minLength: { value: 8, message:`*${t('PasswordMustBeAtLeast8')}` },
+                    required: { value: true, message: `*${t('ThisFieldIsRequired')}` },
+                    minLength: { value: 8, message: `*${t('PasswordMustBeAtLeast8')}` },
                   })}
                 />
               </label>
@@ -119,7 +119,7 @@ export default function Register() {
                   type="password"
                   placeholder={t('PleaseEnterThePasswordAgain')}
                   {...register("repassword", {
-                    required: { value: true, message:`*${t('ThisFieldIsRequired')}`},
+                    required: { value: true, message: `*${t('ThisFieldIsRequired')}` },
                     validate: {
                       message: (value) => {
                         if (value !== watch('password')) {

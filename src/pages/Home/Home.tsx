@@ -20,7 +20,7 @@ import boardMan from '../../assets/images/board-man.png'
 export default function Home() {
     const { t, i18n } = useTranslation();
 
-    const store = useSelector((store: RootStore) => store)
+    const userStatus = useSelector((store: RootStore) => store.userStatus)
 
     const [openLang, setOpenLang] = useState<boolean>(false);
     const [Lang, setLang] = useState<string>(i18n.language);
@@ -44,7 +44,7 @@ export default function Home() {
                 <div className="Home_text">{t('chose_where_you_want')}</div>
                 <div className="Home_chose">
                     {
-                        store.userStatus.user === '' ?
+                        userStatus.user === '' ?
                             <>
                                 <Link to='/SignIn' className="Home_chose_item">
                                     {t('sign_in')}
