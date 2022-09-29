@@ -1,7 +1,5 @@
 import { createStore, applyMiddleware } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import { routerMiddleware } from  'react-router-redux';
-import { createHashHistory } from  'history';
 import logger from 'redux-logger';
 import thunk from 'redux-thunk';
 
@@ -9,7 +7,7 @@ import rootReducer from './rootReducer';
 
 const store = createStore(
   rootReducer,
-  composeWithDevTools(applyMiddleware(logger,routerMiddleware(createHashHistory()), thunk))
+  composeWithDevTools(applyMiddleware(logger, thunk))
 );
 
 export default store;
