@@ -59,7 +59,7 @@ export const fetchDeleteTodo = (store, id) => {
       const todoList = store.todoStatus.todo;
       await deleteTodo(id);
       todoList.forEach((element, index) => {
-        if (element.id == id) {
+        if (element.id === id) {
           todoList.splice(index, 1);
         }
       });
