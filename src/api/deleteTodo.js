@@ -3,7 +3,7 @@ import Cookies from 'js-cookie';
 import axios from 'axios';
 
 const toggleTodo = async (id) => {
-  let token = Cookies.get('token');
+  const token = Cookies.get('token');
   let res;
   await axios
     .delete(`https://todoo.5xcamp.us/todos/${id}`, {

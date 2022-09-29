@@ -5,7 +5,7 @@ import axios from 'axios';
 import toast from 'react-hot-toast';
 
 const addTodo = async (content) => {
-  let token = Cookies.get('token');
+  const token = Cookies.get('token');
   let res;
   let body = {
     todo: {

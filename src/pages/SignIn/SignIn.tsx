@@ -34,7 +34,7 @@ export default function SignIn() {
   const store = useSelector((store: RootStore) => store)
 
   const onSubmit = (data: any) => {
-    let form = {
+    const form = {
       user: {
         email: data.email,
         password: data.password

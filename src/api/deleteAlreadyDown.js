@@ -3,7 +3,7 @@ import Cookies from 'js-cookie';
 import axios from 'axios';
 
 const deleteAlreadyDown = async (ids) => {
-  let token = Cookies.get('token');
+  const token = Cookies.get('token');
   let APIs = ids.map((id) => 'https://todoo.5xcamp.us/todos/' + id);
 
   Promise.all(

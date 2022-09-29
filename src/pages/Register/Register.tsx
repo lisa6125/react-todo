@@ -34,7 +34,7 @@ export default function Register() {
   const store = useSelector((store: RootStore) => store)
 
   const onSubmit = (data: any) => {
-    let form = {
+    const form = {
       user: {
         email: data.email,
         nickname: data.nickname,
