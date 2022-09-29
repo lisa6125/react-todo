@@ -11,22 +11,24 @@ import {
   CHANGE_REGISTER_STATUS,
 } from './userTypes';
 
+
+// api js
+import registerUser from '../../api/registerUser';
+
 export const registerAndSignInFetchUsers = (form) => {
-  return (dispatch) => {
-    dispatch(fetchUsersRequest());
-    axios
-      .post('https://todoo.5xcamp.us/users', form)
-      .then((response) => {
-        toast.success(response.data.message);
-        dispatch(changeRegisterStatus(true));
-        dispatch(signInFetchUsers(form));
-      })
-      .catch((error) => {
-        toast.error(
-          `${error.response.data.message},${error.response.data.error}`
-        );
-        dispatch(fetchUsersFailure(error.response.data.message));
-      });
+  return async (dispatch) => {
+    try {
+      dispatch(fetchUsersRequest());
+      const res = await registerUser(form);
+      toast.success(res.data.message);
+      dispatch(changeRegisterStatus(true));
+      dispatch(signInFetchUsers(form));
+    } catch (err) {
+      toast.error(
+        `${err.response.data.message},${err.response.data.error}`
+      );
+      dispatch(fetchUsersFailure(err.response.data.message));
+    }
   };
 };
 
