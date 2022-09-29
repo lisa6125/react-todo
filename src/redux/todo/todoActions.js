@@ -8,7 +8,7 @@ import getTodoList from '../../api/getTodoList';
 import addTodo from '../../api/addTodo';
 import toggleTodo from '../../api/toggleTodo';
 import deleteTodo from '../../api/deleteTodo';
-import deleteAlreadyDown from '../../api/deleteAlreadyDown';
+import deleteAlreadyDownTodo from '../../api/deleteAlreadyDownTodo';
 
 export const fetchDataTodo = () => {
   return async (dispatch) => {
@@ -85,7 +85,7 @@ export const fetchDeleteAlreadyDownTodo = (store) => {
           ids.push(element.id);
         }
       });
-      await deleteAlreadyDown(ids);
+      await deleteAlreadyDownTodo(ids);
 
       dispatch(setTodoInStore(newTodoList));
     } catch (err) {

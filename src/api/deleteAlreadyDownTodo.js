@@ -2,7 +2,7 @@
 import Cookies from 'js-cookie';
 import axios from 'axios';
 
-const deleteAlreadyDown = async (ids) => {
+const deleteAlreadyDownTodo = async (ids) => {
   const token = Cookies.get('token');
   let APIs = ids.map((id) => 'https://todoo.5xcamp.us/todos/' + id);
 
@@ -13,11 +13,11 @@ const deleteAlreadyDown = async (ids) => {
           'Content-Type': 'application/json',
           Authorization: token,
         },
-      })
+      });
     })
   ).then((response) => {
-    console.log(response)
-  })
+    console.log(response);
+  });
 };
 
-export default deleteAlreadyDown;
+export default deleteAlreadyDownTodo;
