@@ -68,8 +68,8 @@ export default function SignIn() {
                   type="email"
                   placeholder={t('PleaseEnterEmail')}
                   {...register("email", {
-                    required: { value: true, message: "*" + t('ThisFieldIsRequired') },
-                    pattern: { value: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g, message: "*" + t('DoesNotMeetEmailRules') }
+                    required: { value: true, message:`*${t('ThisFieldIsRequired')}`},
+                    pattern: { value: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g, message:`*${t('DoesNotMeetEmailRules')}` }
                   })}
                 />
               </label>
@@ -84,7 +84,7 @@ export default function SignIn() {
                   type="password"
                   placeholder={t('PleaseEnterPassword')}
                   {...register("password", {
-                    required: { value: true, message: "*" + t('ThisFieldIsRequired') },
+                    required: { value: true, message:`*${t('ThisFieldIsRequired')}`},
                   })}
                 />
               </label>

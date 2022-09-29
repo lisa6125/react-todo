@@ -23,7 +23,7 @@ export const registerAndSignInFetchUsers = (form) => {
       })
       .catch((error) => {
         toast.error(
-          error.response.data.message + ',' + error.response.data.error
+          `${error.response.data.message},${error.response.data.error}`
         );
         dispatch(fetchUsersFailure(error.response.data.message));
       });

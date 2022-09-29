@@ -159,9 +159,10 @@ export default function Todo() {
                         </div>
                         <div className="todo_listBox_done">
                             <div className="haveDoneNum">{
-                                caseState === 'All' ? filterTodoArr.length + ' ' + t('items') : caseState === 'unCompleted' ?
-                                    filterTodoArr.length + ' ' + t('itemsUnCompleted') :
-                                    filterTodoArr.length + ' ' + t('itemsCompleted')
+                                caseState === 'All' ? `${filterTodoArr.length} ${t('items')}` : caseState === 'unCompleted' ?
+                                    `${filterTodoArr.length} ${t('itemsUnCompleted')}`
+                                    :
+                                    `${filterTodoArr.length} ${t('itemsCompleted')}`
                             }</div>
                             <div className="clearDone" onClick={() => cleanAlreadyDownTodo()}>{t('ClearCompletedItems')}</div>
                         </div>

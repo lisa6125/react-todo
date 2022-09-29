@@ -71,8 +71,8 @@ export default function Register() {
                   type="email"
                   placeholder={t('PleaseEnterEmail')}
                   {...register("email", {
-                    required: { value: true, message: "*" + t('ThisFieldIsRequired') },
-                    pattern: { value: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g, message: "*" + t('DoesNotMeetEmailRules') }
+                    required: { value: true, message:`*${t('ThisFieldIsRequired')}`},
+                    pattern: { value: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g, message:`*${t('DoesNotMeetEmailRules')}`}
                   })}
                 />
               </label>
@@ -87,7 +87,7 @@ export default function Register() {
                   type="nickname"
                   placeholder={t('PleaseEnterNickname')}
                   {...register("nickname", {
-                    required: { value: true, message: "*" + t('ThisFieldIsRequired') }
+                    required: { value: true, message: `*${t('ThisFieldIsRequired') }` }
                   }
                   )}
                 />
@@ -103,8 +103,8 @@ export default function Register() {
                   type="password"
                   placeholder={t('PleaseEnterPassword')}
                   {...register("password", {
-                    required: { value: true, message: "*" + t('ThisFieldIsRequired') },
-                    minLength: { value: 8, message: "*" + t('PasswordMustBeAtLeast8') },
+                    required: { value: true, message: `*${t('ThisFieldIsRequired') }`},
+                    minLength: { value: 8, message:`*${t('PasswordMustBeAtLeast8')}` },
                   })}
                 />
               </label>
@@ -119,11 +119,11 @@ export default function Register() {
                   type="password"
                   placeholder={t('PleaseEnterThePasswordAgain')}
                   {...register("repassword", {
-                    required: { value: true, message: "*" + t('ThisFieldIsRequired') },
+                    required: { value: true, message:`*${t('ThisFieldIsRequired')}`},
                     validate: {
                       message: (value) => {
                         if (value !== watch('password')) {
-                          return "*" + t('DifferentfromPassword')
+                          return `*${t('DifferentfromPassword')}`
                         }
                       },
                     }
