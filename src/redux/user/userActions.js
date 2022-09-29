@@ -11,9 +11,10 @@ import {
   CHANGE_REGISTER_STATUS,
 } from './userTypes';
 
-
 // api js
 import registerUser from '../../api/registerUser';
+import signInUser from '../../api/signInUser';
+import logOutUser from '../../api/logOutUser';
 
 export const registerAndSignInFetchUsers = (form) => {
   return async (dispatch) => {
@@ -24,49 +25,38 @@ export const registerAndSignInFetchUsers = (form) => {
       dispatch(changeRegisterStatus(true));
       dispatch(signInFetchUsers(form));
     } catch (err) {
-      toast.error(
-        `${err.response.data.message},${err.response.data.error}`
-      );
+      toast.error(`${err.response.data.message},${err.response.data.error}`);
       dispatch(fetchUsersFailure(err.response.data.message));
     }
   };
 };
 
 export const signInFetchUsers = (form) => {
-  return (dispatch) => {
-    dispatch(fetchUsersRequest());
-    axios
-      .post('https://todoo.5xcamp.us/users/sign_in', form)
-      .then((response) => {
-        const user = response.data.nickname;
-        toast.success(response.data.message);
-        Cookies.set('token', response.headers.authorization);
-        dispatch(fetchUsersSuccess(user));
-      })
-      .catch((error) => {
-        toast.error(error.response.data.message);
-        dispatch(fetchUsersFailure(error.response.data.message));
-      });
+  return async (dispatch) => {
+    try {
+      dispatch(fetchUsersRequest());
+      const res = await signInUser(form);
+      const user = res.data.nickname;
+      toast.success(res.data.message);
+      Cookies.set('token', res.headers.authorization);
+      dispatch(fetchUsersSuccess(user));
+    } catch (err) {
+      toast.error(err.response.data.message);
+      dispatch(fetchUsersFailure(err.response.data.message));
+    }
   };
 };
 
 export const logOutFetchUser = () => {
-  return (dispatch) => {
-    dispatch(fetchUsersRequest());
-    axios
-      .delete('https://todoo.5xcamp.us/users/sign_out', {
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: Cookies.get('token'),
-        },
-      })
-      .then((response) => {
-        toast.success(response.data.message);
-        dispatch(fetchUsersSuccess(''));
-      })
-      .catch((error) => {
-        toast.error(error.response.data.message);
-      });
+  return async (dispatch) => {
+    try {
+      dispatch(fetchUsersRequest());
+      const res = await logOutUser();
+      toast.success(res.data.message);
+      dispatch(fetchUsersSuccess(''));
+    } catch (err) {
+      toast.error(err.response.data.message);
+    }
   };
 };
 
