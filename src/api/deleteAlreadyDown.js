@@ -8,14 +8,16 @@ const deleteAlreadyDown = async (ids) => {
 
   Promise.all(
     APIs.map(async (url) => {
-      await axios.delete(url, {
+      return await axios.delete(url, {
         headers: {
           'Content-Type': 'application/json',
           Authorization: token,
         },
-      });
+      })
     })
-  );
+  ).then((response) => {
+    console.log(response)
+  })
 };
 
 export default deleteAlreadyDown;
